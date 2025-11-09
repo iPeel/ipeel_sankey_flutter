@@ -147,6 +147,9 @@ InteractiveSankeyPainter buildInteractiveSankeyPainter({
   Color? darkColor,
   Color? lightColor,
   final bool showLabels = true,
+  final FontWeight? fontWeight,
+  final String? fontFamily,
+  final double? fontSize,
 }) {
   return InteractiveSankeyPainter(
     nodes: nodes,
@@ -155,7 +158,10 @@ InteractiveSankeyPainter buildInteractiveSankeyPainter({
     selectedNodeId: selectedNodeId,
     showLabels: showLabels,
     darkColor: darkColor,
-    lightColor: lightColor
+    lightColor: lightColor,
+    fontFamily: fontFamily,
+    fontWeight: fontWeight,
+    fontSize: fontSize,
   );
 }
 
@@ -176,6 +182,9 @@ class SankeyDiagramWidget extends StatelessWidget {
   final bool showLabels;
   final Color? darkColor;
   final Color? lightColor;
+  final FontWeight? fontWeight;
+  final String? fontFamily;
+  final double? fontSize;
 
   const SankeyDiagramWidget({
     Key? key,
@@ -186,7 +195,10 @@ class SankeyDiagramWidget extends StatelessWidget {
     this.size = const Size(1000, 600),
     this.showLabels = true,
     this.darkColor,
-    this.lightColor
+    this.lightColor,
+    this.fontFamily,
+    this.fontSize,
+    this.fontWeight
   }) : super(key: key);
 
   @override
@@ -205,7 +217,10 @@ class SankeyDiagramWidget extends StatelessWidget {
           selectedNodeId: selectedNodeId,
           showLabels: showLabels,
           darkColor: darkColor,
-          lightColor: lightColor
+          lightColor: lightColor,
+          fontWeight: fontWeight,
+          fontFamily: fontFamily,
+          fontSize: fontSize
         ),
       ),
     );
