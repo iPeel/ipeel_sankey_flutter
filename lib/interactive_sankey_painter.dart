@@ -16,6 +16,8 @@ class InteractiveSankeyPainter extends SankeyPainter {
 
   /// ID of the currently selected node, if any
   final int? selectedNodeId;
+  final Color? darkColor;
+  final Color? lightColor;
 
   InteractiveSankeyPainter({
     required List<SankeyNode> nodes,
@@ -82,7 +84,7 @@ class InteractiveSankeyPainter extends SankeyPainter {
       }
 
       final isDark = color.computeLuminance() < 0.05;
-      final textColor = isDark ? Colors.white : Colors.black;
+      final textColor = isDark ? darkColor ?? Colors.white : lightColor ?? Colors.black;
 
       if (node.label != null && showLabels) {
         final textSpan = TextSpan(
