@@ -18,6 +18,9 @@ class InteractiveSankeyPainter extends SankeyPainter {
   final int? selectedNodeId;
   final Color? darkColor;
   final Color? lightColor;
+  final FontWeight? fontWeight;
+  final String? fontFamily;
+  final double? fontSize;
 
   InteractiveSankeyPainter({
     required List<SankeyNode> nodes,
@@ -27,7 +30,10 @@ class InteractiveSankeyPainter extends SankeyPainter {
     bool showLabels = true,
     Color linkColor = Colors.grey,
     this.darkColor,
-    this.lightColor
+    this.lightColor,
+    this.fontWeight = FontWeight.bold,
+    this.fontFamily,
+    this.fontSize,
   }) : super(
           showLabels: showLabels,
           nodes: nodes,
@@ -93,8 +99,9 @@ class InteractiveSankeyPainter extends SankeyPainter {
           text: node.label,
           style: TextStyle(
             color: textColor,
-            fontSize: 10,
-            fontWeight: FontWeight.bold,
+            fontSize: fontSize ?? 10,
+            fontWeight: fontWeight,
+            fontFamily: fontFamily
           ),
         );
 
