@@ -26,6 +26,8 @@ class InteractiveSankeyPainter extends SankeyPainter {
     this.selectedNodeId,
     bool showLabels = true,
     Color linkColor = Colors.grey,
+    this.darkColor,
+    this.lightColor
   }) : super(
           showLabels: showLabels,
           nodes: nodes,
