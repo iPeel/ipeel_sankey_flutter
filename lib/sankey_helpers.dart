@@ -144,6 +144,8 @@ InteractiveSankeyPainter buildInteractiveSankeyPainter({
   required List<SankeyLink> links,
   required Map<String, Color> nodeColors,
   int? selectedNodeId,
+  Color? darkColor,
+  Color? lightColor,
   final bool showLabels = true,
 }) {
   return InteractiveSankeyPainter(
@@ -152,6 +154,8 @@ InteractiveSankeyPainter buildInteractiveSankeyPainter({
     nodeColors: nodeColors,
     selectedNodeId: selectedNodeId,
     showLabels: showLabels,
+    darkColor: darkColor,
+    lightColor: lightCOlor
   );
 }
 
@@ -170,6 +174,8 @@ class SankeyDiagramWidget extends StatelessWidget {
   final Function(int?)? onNodeTap;
   final Size size;
   final bool showLabels;
+  final Color? darkColor;
+  final Color? lightColor;
 
   const SankeyDiagramWidget({
     Key? key,
@@ -179,6 +185,8 @@ class SankeyDiagramWidget extends StatelessWidget {
     this.onNodeTap,
     this.size = const Size(1000, 600),
     this.showLabels = true,
+    this.darkColor,
+    this.lightColor
   }) : super(key: key);
 
   @override
@@ -196,6 +204,8 @@ class SankeyDiagramWidget extends StatelessWidget {
           nodeColors: nodeColors,
           selectedNodeId: selectedNodeId,
           showLabels: showLabels,
+          darkColor: darkColor,
+          lightColor: lightColor
         ),
       ),
     );
