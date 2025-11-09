@@ -155,7 +155,7 @@ InteractiveSankeyPainter buildInteractiveSankeyPainter({
     selectedNodeId: selectedNodeId,
     showLabels: showLabels,
     darkColor: darkColor,
-    lightColor: lightCOlor
+    lightColor: lightColor
   );
 }
 
