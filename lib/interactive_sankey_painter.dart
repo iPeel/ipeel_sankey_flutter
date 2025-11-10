@@ -75,8 +75,8 @@ class InteractiveSankeyPainter extends SankeyPainter {
             Offset(source.x0, yMid),
             Offset(target.x0, yMid),
             [
-              sourceColor,
-              targetColor,
+              sourceColor.withAlpha(128),
+              targetColor.withAlpha(128),
             ])
           ..style = PaintingStyle.stroke
           ..strokeWidth = link.width;
@@ -114,24 +114,40 @@ class InteractiveSankeyPainter extends SankeyPainter {
 
       final isDark = color.computeLuminance() < 0.05;
       final textColor = isDark ? darkColor ?? Colors.white : lightColor ?? Colors.black;
+      final textOutlineColor = !isDark ? darkColor ?? Colors.white : lightColor ?? Colors.black;
 
       if (node.label != null && showLabels) {
-        final textSpan = TextSpan(
+        final TextPainter textPainter = TextPainter(
+          text: TextSpan(
           text: node.label,
           style: TextStyle(
             color: textColor,
             fontSize: fontSize ?? 10,
             fontWeight: fontWeight,
-            fontFamily: fontFamily
-          ),
-        );
-
-        final textPainter = TextPainter(
-          text: textSpan,
+            fontFamily: fontFamily,
+            ),
+        ),
           textDirection: TextDirection.ltr,
           maxLines: 1,
-        );
-        textPainter.layout(minWidth: 0, maxWidth: size.width);
+        )..layout(minWidth: 0, maxWidth: size.width);
+
+        final TextPainter strokePainter = TextPainter(
+          text: TextSpan(
+          text: node.label,
+          style: TextStyle(
+            fontSize: fontSize ?? 10,
+            fontWeight: fontWeight,
+            fontFamily: fontFamily,
+            foreground: Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 1.5
+            ..color = textOutlineColor
+            ..strokeJoin = StrokeJoin.round,
+            ),
+        ),
+          textDirection: TextDirection.ltr,
+          maxLines: 1,
+        )..layout(minWidth: 0, maxWidth: size.width);
 
         const margin = 6.0;
         final labelY = rect.top + (rect.height - textPainter.height) / 2;
@@ -147,7 +163,10 @@ class InteractiveSankeyPainter extends SankeyPainter {
                     ? labelOffsetLeft
                     : labelOffsetRight;
 
+        
+        //strokePainter.paint(canvas, labelOffset);
         textPainter.paint(canvas, labelOffset);
+        
       }
     }
   }
