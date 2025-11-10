@@ -150,6 +150,7 @@ InteractiveSankeyPainter buildInteractiveSankeyPainter({
   final FontWeight? fontWeight,
   final String? fontFamily,
   final double? fontSize,
+  final bool? gradientLinks,
 }) {
   return InteractiveSankeyPainter(
     nodes: nodes,
@@ -162,6 +163,7 @@ InteractiveSankeyPainter buildInteractiveSankeyPainter({
     fontFamily: fontFamily,
     fontWeight: fontWeight,
     fontSize: fontSize,
+    gradientLinks: gradientLinks ?? false
   );
 }
 
@@ -185,6 +187,7 @@ class SankeyDiagramWidget extends StatelessWidget {
   final FontWeight? fontWeight;
   final String? fontFamily;
   final double? fontSize;
+  final bool? gradientLinks;
 
   const SankeyDiagramWidget({
     Key? key,
@@ -198,7 +201,8 @@ class SankeyDiagramWidget extends StatelessWidget {
     this.lightColor,
     this.fontFamily,
     this.fontSize,
-    this.fontWeight
+    this.fontWeight,
+    this.gradientLinks
   }) : super(key: key);
 
   @override
@@ -220,7 +224,8 @@ class SankeyDiagramWidget extends StatelessWidget {
           lightColor: lightColor,
           fontWeight: fontWeight,
           fontFamily: fontFamily,
-          fontSize: fontSize
+          fontSize: fontSize,
+          gradientLinks: gradientLinks ?? false
         ),
       ),
     );
