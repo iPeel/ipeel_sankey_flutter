@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sankey_flutter/sankey_link.dart';
 import 'package:sankey_flutter/sankey_node.dart';
 import 'package:sankey_flutter/sankey_painter.dart';
+import 'dart:ui' as ui;
 
 /// A [SankeyPainter] subclass that adds interactivity:
 ///
@@ -21,6 +22,7 @@ class InteractiveSankeyPainter extends SankeyPainter {
   final FontWeight? fontWeight;
   final String? fontFamily;
   final double? fontSize;
+  final bool? gradientLinks;
 
   InteractiveSankeyPainter({
     required List<SankeyNode> nodes,
@@ -34,6 +36,7 @@ class InteractiveSankeyPainter extends SankeyPainter {
     this.fontWeight = FontWeight.bold,
     this.fontFamily,
     this.fontSize,
+    this.gradientLinks
   }) : super(
           showLabels: showLabels,
           nodes: nodes,
@@ -55,19 +58,37 @@ class InteractiveSankeyPainter extends SankeyPainter {
       final sourceColor = nodeColors[source.label] ?? Colors.blue;
       final targetColor = nodeColors[target.label] ?? Colors.blue;
       var blended = blendColors(sourceColor, targetColor);
+      final xMid = (source.x1 + target.x0) / 2;
+      final yMid = (source.y1 + target.y0) / 2;
 
       // Highlight links connected to the selected node
       final isConnected = (selectedNodeId != null) &&
           (source.id == selectedNodeId || target.id == selectedNodeId);
       blended = blended.withOpacity(isConnected ? 0.9 : 0.5);
 
-      final linkPaint = Paint()
-        ..color = blended
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = link.width;
+      final linkPaint;
+      
+      if (gradientLinks??false){
+        linkPaint = Paint()
+          //..color = blended
+          ..shader =  ui.Gradient.linear(
+            Offset(source.x0, yMid),
+            Offset(target.x0, yMid),
+            [
+              sourceColor,
+              targetColor,
+            ])
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = link.width;
+      }else{
+        linkPaint = Paint()
+          ..color = blended
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = link.width;
+      }
 
       final path = Path();
-      final xMid = (source.x1 + target.x0) / 2;
+      
       path.moveTo(source.x1, link.y0);
       path.cubicTo(xMid, link.y0, xMid, link.y1, target.x0, link.y1);
 
