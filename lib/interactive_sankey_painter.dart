@@ -164,7 +164,7 @@ class InteractiveSankeyPainter extends SankeyPainter {
                     : labelOffsetRight;
 
         
-        //strokePainter.paint(canvas, labelOffset);
+        strokePainter.paint(canvas, labelOffset);
         textPainter.paint(canvas, labelOffset);
         
       }
